@@ -1,0 +1,45 @@
+# First we have to install the library needed for the purpose of this project
+pip install pyxDamerauLevenshtein
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Now we will be creating the object of the class and feeding the data according to it
+import re
+from pyxdameraulevenshtein import damerau_levenshtein_distance
+
+# Sample dictionary of correct words
+correct_words = {"hello", "world", "python", "programming", "code", "algorithm", "how", "are", "you"}
+
+def get_closest_word(word):
+    min_distance = float('inf')
+    closest_word = None
+
+    for correct_word in correct_words:
+        distance = damerau_levenshtein_distance(word, correct_word)
+        if distance < min_distance:
+            min_distance = distance
+            closest_word = correct_word
+
+    return closest_word
+
+def auto_correct(text):
+    # Use regular expressions to tokenize the text into words
+    words = re.findall(r'\b\w+\b', text)
+
+    corrected_text = []
+    for word in words:
+        corrected_word = get_closest_word(word.lower())
+        corrected_text.append(corrected_word)
+
+    # Reconstruct the corrected text
+    corrected_text = ' '.join(corrected_text)
+    return corrected_text
+
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Now in the following code, we will execute the object and the function to perform the task of auto-correction
+# Example usage
+input_text = input("Enter a String for correction: ")
+corrected_text = auto_correct(input_text)
+
+print("Input text:", input_text)
+print("Corrected text:", corrected_text)
