@@ -1,0 +1,15 @@
+# In this, we'll be making an ai to translate english to hindi
+pip install translate
+
+#Below is the code to call the library and define the function for the purpose of translation
+from translate import Translator
+
+def eng_to_hin(text):
+    translator = Translator(from_lang="english", to_lang="hindi")
+    translation = translator.translate(text)
+    return translation
+
+
+# Here is the execution of the code to tanslate the given/predefined text
+english_text = "How are you?"
+print("Hindi translation:", eng_to_hin(english_text))
